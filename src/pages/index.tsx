@@ -8,6 +8,7 @@ import RiskProfileCardList from "@/components/Organisms/RiskProfileCardList";
 import useModal from "@/utils/hooks/useModal";
 import RiskCalculation from "@/components/Organisms/RiskCalculation";
 import useRiskProfileStore from "@/stores/riskProfiles";
+import NavBar from "@/components/Organisms/NavBar";
 
 export default function Home() {
   const [
@@ -74,9 +75,10 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <NavBar />
+
       <section className="section">
         <div className="container">
-          <h1 className="title">Lotty</h1>
           <RiskProfileCardList
             onEdit={onEditRiskProfile}
             onDelete={onDeleteRiskProfile}

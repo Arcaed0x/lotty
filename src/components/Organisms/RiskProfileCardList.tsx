@@ -25,7 +25,10 @@ const RiskProfileCardList = ({ onEdit, onDelete, children }: Props) => {
 
       setActiveRiskProfile(id);
       deployNotification(
-        <>&apos;{name}&apos; risk profile is now set to active ✅</>,
+        <>
+          <strong>&apos;{name}&apos;</strong> risk profile is now set to active
+          ✅
+        </>,
         undefined,
         "is-success"
       );
