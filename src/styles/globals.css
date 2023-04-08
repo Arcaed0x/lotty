@@ -2,9 +2,18 @@
   max-width: 500px;
   min-width: 230px;
   width: 250px;
+  height: fit-content;
+}
+
+.card-fit-content {
+  height: fit-content;
 }
 
 .overflow-x-scroll {
     overflow-x: scroll;
     scrollbar-gutter: stable both-edges;
+}
+
+.negative-top-margin {
+  margin-top: -0.25rem;
 }

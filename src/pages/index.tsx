@@ -6,9 +6,21 @@ import { useState } from "react";
 import { deployNotification } from "@/utils/deployNotification";
 import RiskProfileCardList from "@/components/Organisms/RiskProfileCardList";
 import useModal from "@/utils/hooks/useModal";
+import RiskCalculation from "@/components/Organisms/RiskCalculation";
+import useRiskProfileStore from "@/stores/riskProfiles";
 
 export default function Home() {
-  const [riskProfiles, setRiskProfiles] = useState<RiskProfile[]>([]);
+  const [
+    riskProfiles,
+    createRiskProfile,
+    updateRiskProfile,
+    deleteRiskProfile,
+  ] = useRiskProfileStore((state) => [
+    state.riskProfiles,
+    state.createRiskProfile,
+    state.updateRiskProfile,
+    state.deleteRiskProfile,
+  ]);
   const [riskProfileToEdit, setRiskProfileToEdit] = useState<
     RiskProfile | undefined
   >();
@@ -16,14 +28,22 @@ export default function Home() {
   const { isModalOpen, openModal, closeModal } = useModal();
 
   const onDeleteRiskProfile = (id: string) => {
-    const { name } = riskProfiles.find((rp) => rp.id === id) || {};
+    const rp = riskProfiles.find((rp) => rp.id === id) as RiskProfile;
 
     deployNotification(
-      <>&apos;{name}&apos; Profile successfully deleted..💨</>,
-      4000,
+      <>
+        <strong>&apos;{rp.name}&apos;</strong> Profile successfully deleted..💨
+        <button
+          className="button is-warning is-light ml-3"
+          onClick={() => createRiskProfile(rp)}
+        >
+          Undo
+        </button>
+      </>,
+      10000,
       "is-warning"
     );
-    setRiskProfiles(riskProfiles.filter((rp) => rp.id !== id));
+    deleteRiskProfile(id);
   };
 
   const onEditRiskProfile = (id: string) => {
@@ -35,14 +55,12 @@ export default function Home() {
   const onRiskProfileFormSubmit = (data: RiskProfile) => {
     switch (modalPurpose) {
       case "Create": {
-        setRiskProfiles([...riskProfiles, data]);
+        createRiskProfile(data);
       }
       case "Edit": {
         setRiskProfileToEdit(undefined);
-        setRiskProfiles([
-          ...riskProfiles.filter((rp) => rp.id !== data.id),
-          data,
-        ]);
+        updateRiskProfile(data);
+
         setModalPurpose("Create");
       }
     }
@@ -60,7 +78,6 @@ export default function Home() {
         <div className="container">
           <h1 className="title">Lotty</h1>
           <RiskProfileCardList
-            riskProfiles={riskProfiles}
             onEdit={onEditRiskProfile}
             onDelete={onDeleteRiskProfile}
           >
@@ -75,6 +92,8 @@ export default function Home() {
             closeModal={closeModal}
             openModal={openModal}
           />
+
+          {riskProfiles.length !== 0 && <RiskCalculation />}
         </div>
       </section>
     </>

@@ -90,8 +90,8 @@ const CreateRiskProfileForm = ({
               reset(defaultCreateInitialValues);
               deployNotification(
                 <>
-                  &apos;{data.name}&apos; Risk profile successfully{" "}
-                  {purposeActionMap[purpose]}!✨
+                  <strong>&apos;{data.name}&apos;</strong> Risk profile
+                  successfully {purposeActionMap[purpose]}!✨
                 </>,
                 undefined,
                 "is-success"

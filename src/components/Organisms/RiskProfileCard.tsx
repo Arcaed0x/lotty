@@ -1,12 +1,13 @@
 import Card from "@/components/Atoms/Card";
 import { RiskProfile } from "./RiskProfileForm";
+import formatCurrency from "@/utils/formatCurrency";
 
 interface Props {
   onEdit: (id: string) => void;
   onDelete: (id: string) => void;
   riskProfile: RiskProfile;
   isActive: boolean;
-  setActive: (id: string) => void;
+  setActive: (id: string, name: string) => void;
 }
 
 const RiskProfileCard = ({
@@ -16,15 +17,15 @@ const RiskProfileCard = ({
   isActive,
   setActive,
 }: Props) => {
-  const formattedAccountSize = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: riskProfile.currency,
-  }).format(riskProfile.amount);
+  const formattedAccountSize = formatCurrency(
+    riskProfile.amount,
+    riskProfile.currency
+  );
 
   return (
     <Card
-      className="card-width mr-3"
-      onClick={() => setActive(riskProfile.name)}
+      className="card-width mr-3 animate__animated animate__fadeIn"
+      onClick={() => setActive(riskProfile.id, riskProfile.name)}
     >
       <header className="card-header">
         <p className="card-header-title">{riskProfile.name}</p>
@@ -48,13 +49,13 @@ const RiskProfileCard = ({
       <footer className="card-footer">
         <div className="buttons py-2 px-2 is-centered">
           <button className="button" onClick={() => onEdit(riskProfile.id)}>
-            Edit
+            <i className="fa fa-pencil-square-o" aria-hidden="true" />
           </button>
           <button
             className="button is-danger"
             onClick={() => onDelete(riskProfile.id)}
           >
-            Delete
+            <i className="fa fa-trash-o" aria-hidden="true" />
           </button>
         </div>
       </footer>
