@@ -9,8 +9,8 @@ const NavBar = ({}: Props) => {
     <nav className="navbar has-shadow">
       <div className="container">
         <div className="navbar-brand">
-          <h1 className="title ml-5 mt-3">
-            Lotty <i className="fa fa-line-chart ml-3" aria-hidden="true"></i>
+          <h1 className="title ml-5 mt-3 is-family-code">
+            Lotty <i className="fa fa-line-chart" aria-hidden="true"></i>
           </h1>
           <div
             className="navbar-burger"
