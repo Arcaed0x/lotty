@@ -30,7 +30,7 @@ const NavBar = ({}: Props) => {
                   <a
                     className="button"
                     target="_blank"
-                    href="https://github.com"
+                    href="https://github.com/Arcaed0x/lotty"
                   >
                     <span className="icon">
                       <i className="fa fa-github"></i>
