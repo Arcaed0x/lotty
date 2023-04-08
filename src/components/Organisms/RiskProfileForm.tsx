@@ -19,7 +19,7 @@ interface Props {
 }
 
 const CreateRiskProfileFormSchema = z.object({
-  id: z.string().nonempty("Hmmmm"),
+  id: z.string().nonempty(),
   name: z.string().nonempty("Risk profile name is required."),
   currency: z.enum(["USD", "EUR", "GBP"]),
   amount: z.preprocess(
