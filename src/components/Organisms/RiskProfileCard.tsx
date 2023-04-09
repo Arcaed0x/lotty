@@ -48,12 +48,21 @@ const RiskProfileCard = ({
       </div>
       <footer className="card-footer">
         <div className="buttons py-2 px-2 is-centered">
-          <button className="button" onClick={() => onEdit(riskProfile.id)}>
+          <button
+            className="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onEdit(riskProfile.id);
+            }}
+          >
             <i className="fa fa-pencil-square-o" aria-hidden="true" />
           </button>
           <button
             className="button is-danger"
-            onClick={() => onDelete(riskProfile.id)}
+            onClick={(e) => {
+              e.stopPropagation();
+              onDelete(riskProfile.id);
+            }}
           >
             <i className="fa fa-trash-o" aria-hidden="true" />
           </button>

@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { RiskProfile } from "@/components/Organisms/RiskProfileForm";
 
-type State = {
+export type State = {
   riskProfiles: RiskProfile[];
   activeRiskProfile: string | undefined;
 };
@@ -12,6 +12,7 @@ type Action = {
   deleteRiskProfile: (riskProfileId: string) => void;
   setActiveRiskProfile: (riskProfileId: string) => void;
   clearActiveRiskProfile: () => void;
+  loadRiskProfileState: (localStorageState: State) => void;
 };
 
 type RiskProfileStore = State & Action;
@@ -32,11 +33,18 @@ const useRiskProfileStore = create<RiskProfileStore>((set) => ({
     }));
   },
   deleteRiskProfile: (riskProfileId: string) => {
-    set((state) => ({
-      riskProfiles: state.riskProfiles.filter(
+    set((state) => {
+      const filteredRiskProfiles = state.riskProfiles.filter(
         (riskProfile) => riskProfile.id !== riskProfileId
-      ),
-    }));
+      );
+      return {
+        riskProfiles: filteredRiskProfiles,
+        activeRiskProfile:
+          filteredRiskProfiles.length > 0
+            ? filteredRiskProfiles[0].id
+            : undefined,
+      };
+    });
   },
   setActiveRiskProfile: (riskProfileId: string) => {
     set((state) => ({
@@ -46,6 +54,12 @@ const useRiskProfileStore = create<RiskProfileStore>((set) => ({
   clearActiveRiskProfile: () => {
     set((state) => ({
       activeRiskProfile: undefined,
+    }));
+  },
+  loadRiskProfileState: (localStorageState: State) => {
+    set((state) => ({
+      riskProfiles: localStorageState.riskProfiles,
+      activeRiskProfile: localStorageState.activeRiskProfile,
     }));
   },
 }));

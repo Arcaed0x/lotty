@@ -66,7 +66,6 @@ const calculateRisk = (
   const sortedRisk = rp.riskPercentages.sort();
   return sortedRisk.map((risk) => {
     const riskInCurrency = (risk / 100) * rp.amount;
-    console.log(risk, riskInCurrency, conversionRate, stopInPips);
     return {
       riskPercentage: risk,
       riskInCurrency,
@@ -108,7 +107,6 @@ const RiskCalculation = ({}: Props) => {
   );
 
   const onStopSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
     const validationRes = z.coerce
       .number({
         invalid_type_error: "Stop in pips must be a number",
