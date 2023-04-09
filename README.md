@@ -57,6 +57,6 @@ Zod was used for the validation of form data and also the validation of state to
 <br />
 
 ## How I would expand this app further...
-- [ ] Add storage of Risk Profiles into localStorage
+- [x] Add storage of Risk Profiles into localStorage
 - [ ] Add backend with integration to forex apis.
 - [ ] Add authentication and database so risk profiles can be accessed from anywhere.
